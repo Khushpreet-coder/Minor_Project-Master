@@ -1,0 +1,249 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+body {
+    background-image: linear-gradient(rgba(36, 35, 39, 0.7), rgba(36, 35, 39, 0.7)), url("../Images/fitness.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+.new {
+    color: white;
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    height: 100vh; /* Full viewport height */
+}
+
+
+*{
+    margin:0;
+    padding:0;
+    list-style:none;
+    text-decoration:none;
+}
+.sidebar{
+    position:fixed;
+    left:-250px;
+    width:250px;
+    height:100%;
+    background:#042331;
+    transition: all .5s ease;
+}
+.sidebar h2{
+    font-size: 22px;
+    color: white;
+    text-align: center;
+    line-height: 70px;
+    background:#063146;
+    user-select: none;
+}
+
+.sidebar ul li{
+    display: block;
+    height: 100%;
+    width:100%;
+    line-height:65px;
+    font-size:20px;
+    color: white;
+    padding-left: 40px;
+    box-sizing: border-box;
+    border-top:1px solid rgba(255,255,255,.1);
+    border-bottom:1px solid black;
+    transition: 4s;;
+}
+
+ul li:hover{
+    padding-left: 50px;
+}
+
+.sidebar ul i{
+    margin-right:12px;
+}
+#check{
+    display:none;
+
+}
+label #btn, label #cancel{
+    position:absolute;
+    cursor: pointer;
+    background: #042331;
+    border-radius:3px;
+}
+label #btn{
+    left:40px;
+    top:25px;
+    font-size:35px;
+    color:white;
+    padding:6px 12px;
+    transition: all .5s
+}
+label #cancel{
+    z-index:1111;
+    left:-195px;
+    top:17px;
+    font-size:30px;
+    color:#0a5275;
+    padding:4px 9px;
+    transition:all.5s ease;
+
+}
+#check:checked~.sidebar{
+    left:0;
+}
+
+#check:checked~ label #btn{
+    left: 250px;
+    opacity:0;
+    pointer-events: none;
+}
+#check:checked~ label #cancel{
+    left: 195px;
+}
+#check:checked ~section{
+    margin-left:250px;
+}
+/* Hide all sections initially */
+.section {
+    display: none;
+    padding: 20px;
+    /* background: white; */
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(230, 227, 227, 0.89);
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+/* Input Styling */
+input {
+    width: 90%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+button {
+    background: #0a5275;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    width: 50%;
+    border-radius: 5px;
+    display: block;
+    margin: 10px auto; /* Centers horizontally */
+}
+
+button:hover {
+    background:#0a5275;
+}
+#workout {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+}
+
+h2, h3 {
+    color: #ebebeb;
+    text-align: center;
+}
+
+ul, ol {
+    margin: 20px 0;
+    padding-left: 20px;
+    color: white;
+}
+
+li {
+    margin-bottom: 10px;
+}
+video {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    height: 250px; /* Fixed height */
+    object-fit: cover; /* Ensures the video fits within the set height */
+    margin: 10px auto;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#profile{
+    color: white;
+}
+
+
+#nutrition {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+    text-align: center;
+    color: white;
+    height: 100vh; /* Adjust height as needed */
+}
+
+
+.meal-plan-container {
+    display: flex;
+    flex-wrap: wrap; /* Allows wrapping of cards to the next row if needed */
+    gap: 20px; /* Adds space between the cards */
+    justify-content: center; /* Center align the cards */
+    padding: 20px; /* Optional: Add some padding around the container */
+}
+
+/* Styling for each meal card */
+.meal-card {
+    width: 200px; 
+    height: 350px; 
+    border: 1px solid #ccc; 
+    padding: 0px; 
+    box-sizing: border-box; 
+    text-align: center;
+    background-color: #f9f9f9; 
+    border-radius: 8px; 
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out; 
+}
+
+/* Hover effect on the meal card */
+.meal-card:hover {
+    transform: scale(1.05); /* Slightly enlarge the card on hover */
+}
+
+/* Styling for the image inside the card */
+.meal-image {
+    width: 200px; /* Makes the image fit the width of the card */
+    height: 150px; /* Fixed height for the image */
+    object-fit: cover; /* Ensures the image covers the area without distortion */
+    margin-bottom: 10px; /* Adds some space below the image */
+    border-radius: 4px; /* Optional: Rounded corners for the image */
+}
+
+/* Styling for the meal name */
+.meal-name {
+    font-weight: bold;
+    color: black;
+    font-size: 16px; /* Adjust the font size as needed */
+    margin-top: 10px; /* Adds space above the name */
+}
+
+/* Styling for the calories text */
+.meal-calories {
+    font-size: 14px;
+    color: #555; /* Optional: A darker color for calories */
+}
+
+
+@media (min-width: 768px) {
+    .video-container {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+
+    .video-container div {
+        width: 45%;
+        text-align: center;
+    }
+}

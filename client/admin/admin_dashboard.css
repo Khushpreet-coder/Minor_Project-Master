@@ -1,0 +1,267 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+body {
+    background-image: linear-gradient(rgba(36, 35, 39, 0.7), rgba(36, 35, 39, 0.7)), url("../Images/fitness.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+h2
+{
+    color: white;
+}
+h1 {
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+    text-align: center;
+}
+
+*{
+    margin:0;
+    padding:0;
+    list-style:none;
+    text-decoration:none;
+}
+.sidebar{
+    position:fixed;
+    left:-250px;
+    width:250px;
+    height:100%;
+    background:#042331;
+    transition: all .5s ease;
+}
+.sidebar h2{
+    font-size: 22px;
+    color: white;
+    text-align: center;
+    line-height: 70px;
+    background:#063146;
+    user-select: none;
+}
+
+.sidebar ul li{
+    display: block;
+    height: 100%;
+    width:100%;
+    line-height:65px;
+    font-size:20px;
+    color: white;
+    padding-left: 40px;
+    box-sizing: border-box;
+    border-top:1px solid rgba(255,255,255,.1);
+    border-bottom:1px solid black;
+    transition: 4s;;
+}
+
+ul li:hover{
+    padding-left: 50px;
+}
+
+.sidebar ul i{
+    margin-right:12px;
+}
+#check{
+    display:none;
+
+}
+label #btn, label #cancel{
+    position:absolute;
+    cursor: pointer;
+    background: #042331;
+    border-radius:3px;
+}
+label #btn{
+    left:40px;
+    top:25px;
+    font-size:35px;
+    color:white;
+    padding:6px 12px;
+    transition: all .5s
+}
+label #cancel{
+    z-index:1111;
+    left:-195px;
+    top:17px;
+    font-size:30px;
+    color:#0a5275;
+    padding:4px 9px;
+    transition:all.5s ease;
+
+}
+#check:checked~.sidebar{
+    left:0;
+}
+
+#check:checked~ label #btn{
+    left: 250px;
+    opacity:0;
+    pointer-events: none;
+}
+#check:checked~ label #cancel{
+    left: 195px;
+}
+#check:checked ~section{
+    margin-left:250px;
+}
+/* section{
+    background:url(fitness.jpg) no-repeat;
+    background-position: center;
+    background-size:cover;
+    height:100vh;
+
+} */
+ /* User Management Table */
+.user-management {
+    margin-left: 270px;
+    padding: 20px;
+}
+
+.user-management h2 {
+    margin-bottom: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background: #333;
+    color: white;
+}
+
+/* Buttons */
+.edit-btn, .delete-btn {
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.edit-btn {
+    background: #4CAF50;
+    color: white;
+}
+
+.delete-btn {
+    background: #E74C3C;
+    color: white;
+}
+/* Hide all sections initially */
+section {
+    display: none; /* Hide all sections initially */
+}
+
+/* Make active section visible */
+section.active {
+    display: block;
+}
+/* Hide all sections initially */
+section {
+    display: none;
+}
+
+/* Make active section visible */
+section.active {
+    display: block;
+}
+
+/* Card Styling */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 250px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 15px;
+}
+
+.card h4 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+#workout-management, #user-management,.nutrition {
+    text-align: center;
+}
+.admin-controls {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.row, .nutrition-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+.card, .nutrition-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    width: 200px;
+    text-align: center;
+    padding: 10px;
+}
+.card img, .nutrition-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+.card-content, .nutrition-card-content {
+    margin-top: 10px;
+}
+.delete-workout, .delete-nutrition {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+#addWorkout, #addNutrition {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
