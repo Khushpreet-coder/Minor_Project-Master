@@ -1,191 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="admin_dashboard.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="admin_dashboard.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="admin_dashboard.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+  <!-- This script will fetch /users and populate the table -->
+  <script src="admin_dashboard.js" defer></script>
 </head>
 <body>
-    <input type="checkbox" id="check">
-    <label for="check" class="menu-btn">
-        <i class="fas fa-bars" id="btn"></i>
-        <i class="fas fa-times" id="cancel"></i>
-    </label>
 
-    <div class="sidebar">
-        <h2>Hello, Admin</h2>
-        <ul>
-            <li onclick="showSection('user-management')"><i class="fa-solid fa-users"></i> Manage Users</li>
-            <li onclick="showSection('workout-management')"><i class="fa-solid fa-dumbbell"></i> Manage Workouts</li>
-            <li onclick="showSection('nutrition-management')"><i class="fa-solid fa-apple-alt"></i> Manage Nutrition</li>
-            <li onclick="showSection('blog-management')"><i class="fa-solid fa-newspaper"></i> Manage Blogs</li>
-        </ul>
+    <div id="welcomeMessage" class="welcome-banner">
+        <p>👋 WELCOME TO ADMIN DASHBOARD</p>
     </div>
 
-    <!-- User Management Section -->
-    <section id="user-management">
-        <h2 id="fix">Manage Users</h2>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>Sr. No.</th>
-                    <th>Username</th>
-                    <th>Gender</th>
-                    <th>BMI</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-               
-                <tr>
-                    <td>1</td>
-                    <td>JohnDoe</td>
-                    <td>Male</td>
-                    <td></td>
-                    <td>
-                        <button class="edit-btn"><i class="fas fa-edit"></i> Edit</button>
-                        <button class="delete-btn"><i class="fas fa-trash-alt"></i> Delete</button>
-                    </td>
-                </tr>
-                
-               
-            </tbody>
-        </table>
-    </section>
-    
-    <!-- Workouts Management Section -->
-    <section id="workout-management">
-        <h2>Manage Workouts</h2>
-        
-        <div class="admin-controls">
-            <button id="addWorkout">Add Workout</button>
-        </div>
-        
-        <div class="row" id="workout-container">
-            <div class="card">
-                <img src="../Images/bb.jpg" alt="Beginner Workout">
+  <input type="checkbox" id="check" />
+  <label for="check" class="menu-btn">
+    <i class="fas fa-bars" id="btn"></i>
+    <i class="fas fa-times" id="cancel"></i>
+  </label>
 
-                <div class="card-content">
-                    <h4>Physical Fitness</h4>
-                    <button class="delete-workout">Delete</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="../Images/gn.jpg" alt="Intermediate Workout">
-                <div class="card-content">
-                    <h4>Weight Gain</h4>
-                    <button class="delete-workout">Delete</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="../Images/str.jpg" alt="Advanced Workout">
-                <div class="card-content">
-                    <h4>Strength Training</h4>
-                    <button class="delete-workout">Delete</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="../Images/loos.jpg" alt="Intermediate Workout">
-                <div class="card-content">
-                    <h4>Fat Lose</h4>
-                    <button class="delete-workout">Delete</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="../Images/runn.jpg" alt="Intermediate Workout">
-                <div class="card-content">
-                    <h4>Running</h4>
-                    <button class="delete-workout">Delete</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="../Images/wht.jpg" alt="Intermediate Workout">
-                <div class="card-content">
-                    <h4>WeightLifting</h4>
-                    <button class="delete-workout">Delete</button>
-                </div>
-            </div>
-        </div>
-    </section>
+  <div class="sidebar">
+    <h2>Hello, Admin</h2>
+    <ul>
+      <li onclick="showSection('user-management')">
+        <i class="fa-solid fa-users"></i> Manage Users
+      </li>
+      <li onclick="showSection('workout-management')">
+        <i class="fa-solid fa-dumbbell"></i> Manage Workouts
+      </li>
+      <li onclick="showSection('nutrition-management')">
+        <i class="fa-solid fa-apple-alt"></i> Manage Nutrition
+      </li>
+      <li onclick="showSection('blog-management')">
+        <i class="fa-solid fa-newspaper"></i> Manage Blogs
+      </li>
+    </ul>
+  </div>
 
-<!-- Nutrition Management Section -->
-<section id="nutrition-management" style="display: none;">
+  <!-- ================= User Management ================= -->
+  <section id="user-management">
+    <h2>Manage Users</h2>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Sr. No.</th>
+          <th>Name</th>
+          <th>Gender</th>
+          <th>Age</th>
+          <th>Email</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="userTableBody">
+        <!-- Rows will be inserted here by admin_dashboard.js -->
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ================ Workout Management ================ -->
+  <section id="workout-management" style="display: none;">
+    <h2>Manage Workouts</h2>
+    <div class="admin-controls">
+      <button id="addWorkout">Add Workout</button>
+    </div>
+    <div class="row" id="workout-container">
+      <!-- ... your existing workout cards ... -->
+    </div>
+  </section>
+
+  <!-- ================ Nutrition Management ================ -->
+  <section id="nutrition-management" style="display: none;">
     <h1>Nutrition Plans</h1>
     <div class="admin-controls">
-        <button id="addNutrition">Add Nutrition Plan</button>
+      <button id="addNutrition">Add Nutrition Plan</button>
     </div>
     <div class="nutrition-content" id="nutrition-container">
-        <div class="nutrition-card">
-            <img src="../Images/kkt.webp" alt="Healthy Meal">
-            <div class="nutrition-card-content">
-                <h4>Weight Loss Plan</h4>
-                <p>Track your calorie intake and maintain a balanced diet.</p>
-                <button class="delete-nutrition">Delete</button>
-            </div>
-        </div>
-        <div class="nutrition-card">
-            <img src="../Images/proy.jpg" alt="Protein Diet">
-            <div class="nutrition-card-content">
-                <h4>Muscle Gain Plan</h4>
-                <p>High-protein meals tailored for muscle growth.</p>
-                <button class="delete-nutrition">Delete</button>
-            </div>
-        </div>
-    </div> 
-</section>
+      <!-- ... your existing nutrition cards ... -->
+    </div>
+  </section>
 
-
-<!-- Blogs Section -->
-<section id="blog-management" class="blog" style="display: none;">
-  <div class="row2">
-    <div class="col2">
-      <p>INSIGHTFUL & INSPIRING</p>
-      <h1> Latest Blogs</h1>
+  <!-- ================= Blog Management ================= -->
+  <section id="blog-management" class="blog" style="display: none;">
+    <h1>Manage Blogs</h1>
+    <div class="admin-controls">
+      <button id="addBlog">Add Blog</button>
     </div>
-  </div>
-  <div class="admin-controls">
-    <button id="addNutrition">Add new blogs</button>
-</div>
-  <div class="row">
-    <div class="card">
-      <img src="../Images/bbg1.PNG" alt="">
-      <div class="card-content">
-        <h4>What is Mindful Eating?</h4>
-        <p>Mindful eating entails fully engaging in the present moment and maintaining an awareness of your thoughts, emotions, and bodily sensations as you eat your food.</p>
-        <button class="delete-nutrition">Delete</button>
-      </div>
+    <div class="row" id="blog-container">
+      <!-- ... your existing blog cards ... -->
     </div>
-    <div class="card">
-      <img src="../Images/yuu.jpg" alt="">
-      <div class="card-content">
-        <h4>How to Make Exercise a Regular Habit in 6 Steps</h4>
-        <p>These six steps can help shift your focus so that you approach exercise as a means to a healthier life, which is essential for making it a daily habit.</p>
-        <button class="delete-nutrition">Delete</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="../Images/bbg3.PNG" alt="Fitness Gym">
-      <div class="card-content">
-        <h4>Time-Friendly Fitness: The Advantages of Gyms with Flexible Hours</h4>
-        <p>Finding time for physical activity in today’s fast-paced world can be challenging. That’s why gyms with flexible hours are so important to fit into your busy schedule.</p>
-        <button class="delete-nutrition">Delete</button>
-      </div>
-    </div>
-
-    
-    <div class="card">
-      <img src="../Images/bbg4.PNG" alt="">
-      <div class="card-content">
-        <h4>The Ultimate Full-body Circuit Workout for Beginners</h4>
-        <p>Keeping your fitness journey fresh and exciting can feel like a lifelong quest. Circuit training is a great way to keep your workouts engaging and effective.</p>
-        <button class="delete-nutrition">Delete</button>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 </body>
 </html>
