@@ -34,8 +34,18 @@ app.get('/', (req, res) => {
 // ---- Signup (only for users, not admin)
 app.post('/signup', (req, res) => {
   const { name, age, gender, email, password } = req.body;
+
   if (!name || !age || !gender || !email || !password) {
     return res.status(400).json({ success: false, message: 'Please fill all fields' });
+  }
+
+  // ✅ Password Strength Check
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  if (!passwordRegex.test(password)) {
+    return res.status(400).json({
+      success: false,
+      message: 'Password must be at least 8 characters and include uppercase, lowercase, number, and special character.',
+    });
   }
 
   db.query('SELECT 1 FROM users WHERE email = ?', [email], (err, results) => {
@@ -76,7 +86,7 @@ app.post('/login', (req, res) => {
 
 // ==================== USERS ====================
 
-// ---- Fetch all users (for admin dashboard)
+// ---- Fetch all users
 app.get('/users', (req, res) => {
   db.query('SELECT id, name, gender, age, email FROM users', (err, results) => {
     if (err) return res.status(500).json({ success: false, message: 'Failed to fetch users' });
@@ -98,13 +108,11 @@ app.delete('/users/:id', (req, res) => {
 
 // ==================== WORKOUTS ====================
 
-// ---- Add a workout
 app.post('/workouts', (req, res) => {
   const { title, details } = req.body;
   if (!title || !details) {
     return res.status(400).json({ success: false, message: 'Missing fields' });
   }
-
   const sql = 'INSERT INTO workouts (title, details) VALUES (?, ?)';
   db.query(sql, [title, details], (err) => {
     if (err) return res.status(500).json({ success: false, message: 'Failed to add workout' });
@@ -112,7 +120,6 @@ app.post('/workouts', (req, res) => {
   });
 });
 
-// ---- Get all workouts
 app.get('/workouts', (req, res) => {
   db.query('SELECT * FROM workouts', (err, results) => {
     if (err) return res.status(500).json({ success: false, message: 'Failed to fetch workouts' });
@@ -120,7 +127,6 @@ app.get('/workouts', (req, res) => {
   });
 });
 
-// ---- Delete a workout
 app.delete('/workouts/:id', (req, res) => {
   const workoutId = req.params.id;
   db.query('DELETE FROM workouts WHERE id = ?', [workoutId], (err) => {
@@ -129,15 +135,13 @@ app.delete('/workouts/:id', (req, res) => {
   });
 });
 
-// ==================== NUTRITION PLANS ====================
+// ==================== NUTRITION ====================
 
-// ---- Add nutrition plan
 app.post('/nutrition', (req, res) => {
   const { title, image_url } = req.body;
   if (!title || !image_url) {
     return res.status(400).json({ success: false, message: 'Missing fields' });
   }
-
   const sql = 'INSERT INTO nutrition_plans (title, image_url) VALUES (?, ?)';
   db.query(sql, [title, image_url], (err) => {
     if (err) return res.status(500).json({ success: false, message: 'Failed to add nutrition plan' });
@@ -145,7 +149,6 @@ app.post('/nutrition', (req, res) => {
   });
 });
 
-// ---- Get all nutrition plans
 app.get('/nutrition', (req, res) => {
   db.query('SELECT * FROM nutrition_plans', (err, results) => {
     if (err) return res.status(500).json({ success: false, message: 'Failed to fetch nutrition plans' });
@@ -153,7 +156,6 @@ app.get('/nutrition', (req, res) => {
   });
 });
 
-// ---- Delete a nutrition plan
 app.delete('/nutrition/:id', (req, res) => {
   const nutritionId = req.params.id;
   db.query('DELETE FROM nutrition_plans WHERE id = ?', [nutritionId], (err) => {
@@ -164,13 +166,11 @@ app.delete('/nutrition/:id', (req, res) => {
 
 // ==================== BLOGS ====================
 
-// ---- Add a blog
 app.post('/blogs', (req, res) => {
   const { title, image_url } = req.body;
   if (!title || !image_url) {
     return res.status(400).json({ success: false, message: 'Missing fields' });
   }
-
   const sql = 'INSERT INTO blogs (title, image_url) VALUES (?, ?)';
   db.query(sql, [title, image_url], (err) => {
     if (err) return res.status(500).json({ success: false, message: 'Failed to add blog' });
@@ -178,7 +178,6 @@ app.post('/blogs', (req, res) => {
   });
 });
 
-// ---- Get all blogs
 app.get('/blogs', (req, res) => {
   db.query('SELECT * FROM blogs', (err, results) => {
     if (err) return res.status(500).json({ success: false, message: 'Failed to fetch blogs' });
@@ -186,7 +185,6 @@ app.get('/blogs', (req, res) => {
   });
 });
 
-// ---- Delete a blog
 app.delete('/blogs/:id', (req, res) => {
   const blogId = req.params.id;
   db.query('DELETE FROM blogs WHERE id = ?', [blogId], (err) => {
