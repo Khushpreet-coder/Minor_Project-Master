@@ -1,98 +1,12 @@
-
-// const express = require('express');
-// const mysql   = require('mysql2');
-// const cors    = require('cors');
-// const path    = require('path');
-
-// const app  = express();
-// const PORT = 5000;
-
-// app.use(cors());
-// app.use(express.json());
-// app.use(express.static(path.join(__dirname, '../client')));
-
-// // MySQL
-// const db = mysql.createConnection({
-//   host: 'localhost',
-//   user: 'root',
-//   password: '',
-//   database: 'fitness_freak'
-// });
-// db.connect(err => { if (err) throw err; console.log('✅ Connected to MySQL'); });
-
-// // ===== SIGNUP ROUTE =====
-// app.post('/signup', (req, res) => {
-//   const { name, age, gender, email, password } = req.body;
-//   if (!name||!age||!gender||!email||!password) {
-//     return res.status(400).json({ success:false, message:'Fill all fields' });
-//   }
-
-//   db.query('SELECT 1 FROM users WHERE email = ?', [email], (e, results) => {
-//     if (e) return res.status(500).json({ success:false, message:'DB error' });
-//     if (results.length) {
-//       return res.status(409).json({ success:false, message:'Email already registered' });
-//     }
-//     const sql = `
-//       INSERT INTO users (name, age, gender, email, password, role)
-//       VALUES (?, ?, ?, ?, ?, 'user')
-//     `;
-//     db.query(sql, [name, age, gender, email, password], err2 => {
-//       if (err2) return res.status(500).json({ success:false, message:'Signup failed' });
-//       res.status(201).json({ success:true, message:'Signup successful' });
-//     });
-//   });
-// });
-
-// // ===== LOGIN ROUTE =====
-// app.post('/login', (req, res) => {
-//   const { email, password, role } = req.body;
-//   if (!email||!password||!role) {
-//     return res.status(400).json({ success:false, message:'Missing fields' });
-//   }
-
-//   const table = role === 'admin' ? 'admin' : 'users';
-//   const sql   = `SELECT 1 FROM ${table} WHERE email = ? AND password = ?`;
-//   db.query(sql, [email, password], (e, results) => {
-//     if (e) return res.status(500).json({ success:false, message:'DB error' });
-//     if (results.length) {
-//       return res.json({ success:true, message:'Login successful', role });
-//     }
-//     res.json({ success:false, message:'Invalid credentials' });
-//   });
-// });
-
-
-// // Fetch all users for Admin dashboard
-// app.get('/users', (req, res) => {
-//   const sql = 'SELECT id, name, gender, age, email FROM users';
-//   db.query(sql, (err, results) => {
-//     if (err) {
-//       console.error("Error fetching users:", err);
-//       return res.status(500).json({ success: false, message: 'Failed to fetch users' });
-//     }
-//     res.json({ success: true, users: results });
-//   });
-// });
-
-
-
-// // serve index.html
-// app.get('/', (req, res) => {
-//   res.sendFile(path.join(__dirname, '../client/index.html'));
-// });
-
-// app.listen(PORT, () => {
-//   console.log(`🚀 Server running at http://localhost:${PORT}`);
-// });
 const express = require('express');
-const mysql   = require('mysql2');
-const cors    = require('cors');
-const path    = require('path');
+const mysql = require('mysql2');
+const cors = require('cors');
+const path = require('path');
 
-const app  = express();
+const app = express();
 const PORT = 5000;
 
-// Middleware
+// Middlewares
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../client')));
@@ -102,9 +16,10 @@ const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: '',
-  database: 'fitness_freak'
+  database: 'fitness_freak',
 });
-db.connect(err => {
+
+db.connect((err) => {
   if (err) throw err;
   console.log('✅ Connected to MySQL');
 });
@@ -114,38 +29,44 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/index.html'));
 });
 
-// ====================== SIGNUP ROUTE ======================
+// ==================== AUTHENTICATION ====================
+
+// ---- Signup (only for users, not admin)
 app.post('/signup', (req, res) => {
   const { name, age, gender, email, password } = req.body;
   if (!name || !age || !gender || !email || !password) {
     return res.status(400).json({ success: false, message: 'Please fill all fields' });
   }
-  db.query('SELECT 1 FROM users WHERE email = ?', [email], (e, results) => {
-    if (e) return res.status(500).json({ success: false, message: 'DB error' });
+
+  db.query('SELECT 1 FROM users WHERE email = ?', [email], (err, results) => {
+    if (err) return res.status(500).json({ success: false, message: 'Database error' });
     if (results.length) {
       return res.status(409).json({ success: false, message: 'Email already registered' });
     }
+
     const sql = `
       INSERT INTO users (name, age, gender, email, password, role)
       VALUES (?, ?, ?, ?, ?, 'user')
     `;
-    db.query(sql, [name, age, gender, email, password], err2 => {
+    db.query(sql, [name, age, gender, email, password], (err2) => {
       if (err2) return res.status(500).json({ success: false, message: 'Signup failed' });
       res.status(201).json({ success: true, message: 'Signup successful' });
     });
   });
 });
 
-// ====================== LOGIN ROUTE ======================
+// ---- Login (for both admin and user)
 app.post('/login', (req, res) => {
   const { email, password, role } = req.body;
   if (!email || !password || !role) {
     return res.status(400).json({ success: false, message: 'Missing fields' });
   }
+
   const table = role === 'admin' ? 'admin' : 'users';
-  const sql   = `SELECT * FROM ${table} WHERE email = ? AND password = ?`;
-  db.query(sql, [email, password], (e, results) => {
-    if (e) return res.status(500).json({ success: false, message: 'DB error' });
+  const sql = `SELECT * FROM ${table} WHERE email = ? AND password = ?`;
+
+  db.query(sql, [email, password], (err, results) => {
+    if (err) return res.status(500).json({ success: false, message: 'Database error' });
     if (results.length) {
       return res.json({ success: true, message: 'Login successful', role });
     }
@@ -153,25 +74,21 @@ app.post('/login', (req, res) => {
   });
 });
 
-// ====================== GET ALL USERS ======================
+// ==================== USERS ====================
+
+// ---- Fetch all users (for admin dashboard)
 app.get('/users', (req, res) => {
   db.query('SELECT id, name, gender, age, email FROM users', (err, results) => {
-    if (err) {
-      console.error('Error fetching users:', err);
-      return res.status(500).json({ success: false, message: 'Failed to fetch users' });
-    }
+    if (err) return res.status(500).json({ success: false, message: 'Failed to fetch users' });
     res.json({ success: true, users: results });
   });
 });
 
-// ====================== DELETE A USER ======================
+// ---- Delete a user
 app.delete('/users/:id', (req, res) => {
   const userId = req.params.id;
   db.query('DELETE FROM users WHERE id = ?', [userId], (err, result) => {
-    if (err) {
-      console.error('Error deleting user:', err);
-      return res.status(500).json({ success: false, message: 'Database error' });
-    }
+    if (err) return res.status(500).json({ success: false, message: 'Database error' });
     if (result.affectedRows) {
       return res.json({ success: true, message: 'User deleted' });
     }
@@ -179,7 +96,106 @@ app.delete('/users/:id', (req, res) => {
   });
 });
 
-// Start server
+// ==================== WORKOUTS ====================
+
+// ---- Add a workout
+app.post('/workouts', (req, res) => {
+  const { title, details } = req.body;
+  if (!title || !details) {
+    return res.status(400).json({ success: false, message: 'Missing fields' });
+  }
+
+  const sql = 'INSERT INTO workouts (title, details) VALUES (?, ?)';
+  db.query(sql, [title, details], (err) => {
+    if (err) return res.status(500).json({ success: false, message: 'Failed to add workout' });
+    res.status(201).json({ success: true, message: 'Workout added successfully' });
+  });
+});
+
+// ---- Get all workouts
+app.get('/workouts', (req, res) => {
+  db.query('SELECT * FROM workouts', (err, results) => {
+    if (err) return res.status(500).json({ success: false, message: 'Failed to fetch workouts' });
+    res.json({ success: true, workouts: results });
+  });
+});
+
+// ---- Delete a workout
+app.delete('/workouts/:id', (req, res) => {
+  const workoutId = req.params.id;
+  db.query('DELETE FROM workouts WHERE id = ?', [workoutId], (err) => {
+    if (err) return res.status(500).json({ success: false, message: 'Failed to delete workout' });
+    res.json({ success: true, message: 'Workout deleted successfully' });
+  });
+});
+
+// ==================== NUTRITION PLANS ====================
+
+// ---- Add nutrition plan
+app.post('/nutrition', (req, res) => {
+  const { title, image_url } = req.body;
+  if (!title || !image_url) {
+    return res.status(400).json({ success: false, message: 'Missing fields' });
+  }
+
+  const sql = 'INSERT INTO nutrition_plans (title, image_url) VALUES (?, ?)';
+  db.query(sql, [title, image_url], (err) => {
+    if (err) return res.status(500).json({ success: false, message: 'Failed to add nutrition plan' });
+    res.status(201).json({ success: true, message: 'Nutrition plan added successfully' });
+  });
+});
+
+// ---- Get all nutrition plans
+app.get('/nutrition', (req, res) => {
+  db.query('SELECT * FROM nutrition_plans', (err, results) => {
+    if (err) return res.status(500).json({ success: false, message: 'Failed to fetch nutrition plans' });
+    res.json({ success: true, nutrition: results });
+  });
+});
+
+// ---- Delete a nutrition plan
+app.delete('/nutrition/:id', (req, res) => {
+  const nutritionId = req.params.id;
+  db.query('DELETE FROM nutrition_plans WHERE id = ?', [nutritionId], (err) => {
+    if (err) return res.status(500).json({ success: false, message: 'Failed to delete nutrition plan' });
+    res.json({ success: true, message: 'Nutrition plan deleted successfully' });
+  });
+});
+
+// ==================== BLOGS ====================
+
+// ---- Add a blog
+app.post('/blogs', (req, res) => {
+  const { title, image_url } = req.body;
+  if (!title || !image_url) {
+    return res.status(400).json({ success: false, message: 'Missing fields' });
+  }
+
+  const sql = 'INSERT INTO blogs (title, image_url) VALUES (?, ?)';
+  db.query(sql, [title, image_url], (err) => {
+    if (err) return res.status(500).json({ success: false, message: 'Failed to add blog' });
+    res.status(201).json({ success: true, message: 'Blog added successfully' });
+  });
+});
+
+// ---- Get all blogs
+app.get('/blogs', (req, res) => {
+  db.query('SELECT * FROM blogs', (err, results) => {
+    if (err) return res.status(500).json({ success: false, message: 'Failed to fetch blogs' });
+    res.json({ success: true, blogs: results });
+  });
+});
+
+// ---- Delete a blog
+app.delete('/blogs/:id', (req, res) => {
+  const blogId = req.params.id;
+  db.query('DELETE FROM blogs WHERE id = ?', [blogId], (err) => {
+    if (err) return res.status(500).json({ success: false, message: 'Failed to delete blog' });
+    res.json({ success: true, message: 'Blog deleted successfully' });
+  });
+});
+
+// ==================== SERVER ====================
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
