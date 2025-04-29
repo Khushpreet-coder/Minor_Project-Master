@@ -1,310 +1,393 @@
-// Function to Show Sections Dynamically
-function showSection(sectionId) {
-    let sections = document.querySelectorAll(".section");
-    sections.forEach(section => section.style.display = "none");
 
-    document.getElementById(sectionId).style.display = "block";
-}
+// document.addEventListener("DOMContentLoaded", () => {
+//   console.log("✅ User Dashboard Script Loaded!");
 
-// BMI Calculation
-function calculateBMI() {
-    let height = parseFloat(document.getElementById("height").value) / 100;
-    let weight = parseFloat(document.getElementById("weight").value);
-    let targetWeight = parseFloat(document.getElementById("targetWeight").value);
-    
-    if (height && weight) {
-        let bmi = (weight / (height * height)).toFixed(2);
-        document.getElementById("bmiResult").innerText = bmi;
+//   let bmiCategory = "";
 
-        let status = "";
-        if (bmi < 18.5) {
-            status = "Underweight";
-        } else if (bmi >= 18.5 && bmi <= 24.9) {
-            status = "Normal Weight";
-        } else if (bmi >= 25 && bmi <= 29.9) {
-            status = "Overweight";
-        } else {
-            status = "Obese";
-        }
+//   // Show Sections (Profile, Workouts, Nutrition, Blogs)
+//   window.showSection = function (sectionId) {
+//     document.querySelectorAll(".section").forEach(section => {
+//       section.style.display = "none";
+//     });
+//     const active = document.getElementById(sectionId);
+//     if (active) active.style.display = "block";
+//   };
 
-        document.getElementById("bmiStatus").innerText = status;
-    } else {
-        alert("Please enter valid height and weight.");
-    }
-}
-function calculateBMI() {
-    let height = parseFloat(document.getElementById("height").value) / 100; // Convert cm to meters
-    let weight = parseFloat(document.getElementById("weight").value);
-
-    if (isNaN(height) || isNaN(weight) || height <= 0 || weight <= 0) {
-        alert("Please enter valid height and weight values.");
-        return;
-    }
-
-    let bmi = (weight / (height * height)).toFixed(2);
-    document.getElementById("bmiResult").innerText = bmi;
-
-    let status = "";
-    if (bmi < 18.5) {
-        status = "Underweight";
-        showWeightGainWorkouts();
-    } else if (bmi < 24.9) {
-        status = "Normal weight";
-        showGeneralWorkouts();
-    } else {
-        status = "Overweight";
-        showWeightLossWorkouts();
-    }
-
-    document.getElementById("bmiStatus").innerText = status;
-}
-
-function showWeightGainWorkouts() {
-    document.getElementById("workout").innerHTML = `
-        <h2 style="color: white;">Workouts for Weight Gain</h2>
-        <ul style="color: white;">
-            <li>Strength Training (3-4 times a week)</li>
-            <li>Calisthenics (Push-ups, Squats, Pull-ups)</li>
-            <li>Progressive Overload Training</li>
-            <li>High-Calorie Diet Plan</li>
-        </ul>
-        <h3 style="color: white;">Recommended Exercises:</h3>
-        <ol style="color: white;">
-            <li><b>Pull-ups:</b> Perform 3 sets of 6-10 reps.</li>
-            <video width="320" height="240" controls>
-                <source src="../Videos/pullups.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            
-            <li><b>Push-ups:</b> Perform 3 sets of 12-15 reps.</li>
-            <video width="320" height="240" controls>
-                <source src="../Videos/pushups.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-
-            <li><b>Squats:</b> Perform 3 sets of 10-15 reps.</li>
-            <video width="320" height="240" controls>
-                <source src="../Videos/squat.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </ol>
-    `;
-}
-
-
-
-function showGeneralWorkouts() {
-    document.getElementById("workout").innerHTML = `
-        <h2 style="color: white;">General Fitness Workouts</h2>
-        <ul style="color: white;">
-            <li>Cardio (Running, Cycling, Swimming)</li>
-            <li>Full-Body Strength Training</li>
-            <li>Flexibility Exercises (Yoga, Stretching)</li>
-        </ul>
-        
-       
-<h3 style="color: white; text-align: center;">Recommended Workout:</h3>
-        <img src="../Images/yoga.jpg" alt="Yoga Workout" width="400" height="250" 
-             style="display: block; margin: 10px auto; border-radius: 10px;">
-              <video width="320" height="240" controls>
-                <source src="../Videos/sprints.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <video width="320" height="240" controls>
-                <source src="../Videos/cycling.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        `;
-}
-
-
-function showWeightLossWorkouts() {
-    document.getElementById("workout").innerHTML = `
-        <h2>Workouts for Weight Loss</h2>
-        <ul style="color: white;">
-            <li>HIIT Workouts</li>
-            <li>Cardio (Jump Rope, Running, Cycling)</li>
-            <li>Strength Training (Fat-Burning Focus)</li>
-            <li>Caloric Deficit Diet</li>
-        </ul>
-        <h3>Watch this weight loss workout guide:</h3>
-        <video width="320" height="240" controls>
-                <source src="../Videos/jump_rope.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-             <video width="320" height="240" controls>
-                <source src="../Videos/deadlift.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-    `;
-}
-
-function showSection(sectionId) {
-    document.querySelectorAll(".section").forEach(section => section.style.display = "none");
-    document.getElementById(sectionId).style.display = "block";
-}
-
-function updateNutritionPlan() {
-    let bmi = parseFloat(document.getElementById("bmiResult").innerText);
-    let nutritionDetails = document.getElementById("nutritionDetails");
-
-    if (!bmi) {
-        nutritionDetails.innerHTML = `<p>Please calculate your BMI first.</p>`;
-        return;
-    }
-
-    let planTitle = "";
-    let mealPlans = [];
-
-    // Determine the meal plan based on the BMI value
-    if (bmi < 18.5) {
-        planTitle = "Weight Gain Meal Plan";
-        mealPlans = [
-            { food: "Oatmeal with peanut butter & banana", calories: "450 kcal", image: "../Images/peanut.jpg" },
-            { food: "Nuts & Greek yogurt", calories: "300 kcal", image: "../Images/yogrt.jpg" }
-        ];
-    }
-    else if (bmi < 24.9) {
-        planTitle = "Balanced Nutrition Meal Plan";
-        mealPlans = [
-            { food: "Scrambled eggs with whole-grain toast", calories: "350 kcal", image: "../Images/egg.jpg" },
-            { food: "Hummus & veggie sticks", calories: "250 kcal", image: "../Images/vegstcik.jpg" }
-        ];
-    } else {
-        planTitle = "Weight Loss Meal Plan";
-        mealPlans = [
-            { food: "Smoothie with spinach, banana & almond milk", calories: "300 kcal", image: "../Images/ALmond.jpg" },
-            { food: "Grilled chicken salad with olive oil dressing", calories: "400 kcal", image: "../Images/Grilled.jpg" }
-        ];
-    }
-
-    // Generate HTML for the meal plans
-    let mealPlanHTML = `<h3>${planTitle}</h3><div class="meal-plan-container">`;
-
-    mealPlans.forEach(meal => {
-        mealPlanHTML += `
-            <div class="meal-card">
-                <img src="${meal.image}" alt="${meal.food}" class="meal-image">
-                <p class="meal-name">${meal.food}</p>
-                <p class="meal-calories">Calories: ${meal.calories}</p>
-            </div>
-        `;
-    });
-
-    mealPlanHTML += `</div>`;
-    nutritionDetails.innerHTML = mealPlanHTML;
-}// Function to Show Sections Dynamically
-function showSection(sectionId) {
-    const sections = document.querySelectorAll(".section");
-    sections.forEach(section => section.style.display = "none");
-    document.getElementById(sectionId).style.display = "block";
-}
-
-// BMI Calculation
-// function calculateBMI() {
-//     const height = parseFloat(document.getElementById("height").value) / 100; // Convert cm to meters
+//   // BMI Calculation
+//   window.calculateBMI = function () {
+//     const height = parseFloat(document.getElementById("height").value) / 100;
 //     const weight = parseFloat(document.getElementById("weight").value);
 
 //     if (isNaN(height) || isNaN(weight) || height <= 0 || weight <= 0) {
-//         alert("Please enter valid height and weight values.");
-//         return;
+//       alert("Please enter valid height and weight values.");
+//       return;
 //     }
 
 //     const bmi = (weight / (height * height)).toFixed(2);
 //     document.getElementById("bmiResult").innerText = bmi;
 
-//     let status = "";
 //     if (bmi < 18.5) {
-//         status = "Underweight";
-//         showWeightGainWorkouts();
+//       bmiCategory = "underweight";
 //     } else if (bmi < 24.9) {
-//         status = "Normal weight";
-//         showGeneralWorkouts();
+//       bmiCategory = "normal";
 //     } else {
-//         status = "Overweight";
-//         showWeightLossWorkouts();
+//       bmiCategory = "overweight";
 //     }
 
-//     document.getElementById("bmiStatus").innerText = status;
-// }
+//     document.getElementById("bmiStatus").innerText = bmiCategory.charAt(0).toUpperCase() + bmiCategory.slice(1);
 
-// function showWeightGainWorkouts() {
-//     const workoutContainer = document.getElementById("workout");
-//     workoutContainer.innerHTML = `
-//         <h2 style="color: white;">Workouts for Weight Gain</h2>
-//         <ul style="color: white;">
-//             <li>Strength Training (3-4 times a week)</li>
-//             <li>Calisthenics (Push-ups, Squats, Pull-ups)</li>
-//             <li>Progressive Overload Training</li>
-//             <li>High-Calorie Diet Plan</li>
+//     fetchAdminWorkouts(bmiCategory);
+//   };
+
+//   // Always show Static BMI workouts first
+//   function showStaticBMIWorkouts(category) {
+//     const workoutContainer = document.getElementById("workoutContainer");
+
+//     if (category === "underweight") {
+//       workoutContainer.innerHTML += `
+//         <h3 style="color:white;">Basic Workouts for Weight Gain</h3>
+//         <ul style="color:white;">
+//           <li>Strength Training (3-4 times a week)</li>
+//           <li>Calisthenics (Push-ups, Squats, Pull-ups)</li>
+//           <li>Progressive Overload Training</li>
+//           <li>High-Calorie Diet Plan</li>
 //         </ul>
-//         <h3 style="color: white;">Recommended Exercises:</h3>
-//         <ol style="color: white;">
-//             <li><b>Pull-ups:</b> Perform 3 sets of 6-10 reps.</li>
-//             <video width="320" height="240" controls>
-//                 <source src="Videos/pullups.mp4" type="video/mp4">
-//                 Your browser does not support the video tag.
-//             </video>
-            
-//             <li><b>Push-ups:</b> Perform 3 sets of 12-15 reps.</li>
-//             <video width="320" height="240" controls>
-//                 <source src="Videos/pushups.mp4" type="video/mp4">
-//                 Your browser does not support the video tag.
-//             </video>
+//         <h4 style="color:white;">Recommended Exercises:</h4>
+//         <ol style="color:white;">
+//           <li><b>Pull-ups:</b> 3 sets of 6-10 reps</li>
+//           <video width="320" height="240" controls>
+//             <source src="../Videos/pullups.mp4" type="video/mp4">
+//           </video>
 
-//             <li><b>Squats:</b> Perform 3 sets of 10-15 reps.</li>
-//             <video width="320" height="240" controls>
-//                 <source src="Videos/squat.mp4" type="video/mp4">
-//                 Your browser does not support the video tag.
-//             </video>
+//           <li><b>Push-ups:</b> 3 sets of 12-15 reps</li>
+//           <video width="320" height="240" controls>
+//             <source src="../Videos/pushups.mp4" type="video/mp4">
+//           </video>
+
+//           <li><b>Squats:</b> 3 sets of 10-15 reps</li>
+//           <video width="320" height="240" controls>
+//             <source src="../Videos/squat.mp4" type="video/mp4">
+//           </video>
 //         </ol>
-//     `;
-// }
-
-// function showGeneralWorkouts() {
-//     const workoutContainer = document.getElementById("workout");
-//     workoutContainer.innerHTML = `
-//         <h2 style="color: white;">General Fitness Workouts</h2>
-//         <ul style="color: white;">
-//             <li>Cardio (Running, Cycling, Swimming)</li>
-//             <li>Full-Body Strength Training</li>
-//             <li>Flexibility Exercises (Yoga, Stretching)</li>
+//       `;
+//     } else if (category === "normal") {
+//       workoutContainer.innerHTML += `
+//         <h3 style="color:white;">Basic General Fitness Workouts</h3>
+//         <ul style="color:white;">
+//           <li>Cardio (Running, Cycling, Swimming)</li>
+//           <li>Full-Body Strength Training</li>
+//           <li>Flexibility Exercises (Yoga, Stretching)</li>
 //         </ul>
-        
-       
-// <h3 style="color: white; text-align: center;">Recommended Workout:</h3>
-//         <img src="images/yoga.jpg" alt="Yoga Workout" width="400" height="250" 
-//              style="display: block; margin: 10px auto; border-radius: 10px;">
-//               <video width="320" height="240" controls>
-//                 <source src="Videos/sprints.mp4" type="video/mp4">
-//                 Your browser does not support the video tag.
-//             </video>
-//             <video width="320" height="240" controls>
-//                 <source src="Videos/cycling.mp4" type="video/mp4">
-//                 Your browser does not support the video tag.
-//             </video>
-//         `;
-// }
-
-// function showWeightLossWorkouts() {
-//     const workoutContainer = document.getElementById("workout");
-//     workoutContainer.innerHTML = `
-//         <h2>Workouts for Weight Loss</h2>
-//         <ul style="color: white;">
-//             <li>HIIT Workouts</li>
-//             <li>Cardio (Jump Rope, Running, Cycling)</li>
-//             <li>Strength Training (Fat-Burning Focus)</li>
-//             <li>Caloric Deficit Diet</li>
-//         </ul>
-//         <h3>Watch this weight loss workout guide:</h3>
+//         <img src="../Images/yoga.jpg" width="400" height="250" style="display: block; margin: 10px auto; border-radius: 10px;">
 //         <video width="320" height="240" controls>
-//                 <source src="Videos/jump_rope.mp4" type="video/mp4">
-//                 Your browser does not support the video tag.
-//             </video>
-//              <video width="320" height="240" controls>
-//                 <source src="Videos/deadlift.mp4" type="video/mp4">
-//                 Your browser does not support the video tag.
-//             </video>
-//     `;
-// }
+//           <source src="../Videos/sprints.mp4" type="video/mp4">
+//         </video>
+//         <video width="320" height="240" controls>
+//           <source src="../Videos/cycling.mp4" type="video/mp4">
+//         </video>
+//       `;
+//     } else if (category === "overweight") {
+//       workoutContainer.innerHTML += `
+//         <h3 style="color:white;">Basic Workouts for Weight Loss</h3>
+//         <ul style="color:white;">
+//           <li>HIIT Workouts</li>
+//           <li>Cardio (Jump Rope, Running, Cycling)</li>
+//           <li>Strength Training (Fat-Burning Focus)</li>
+//           <li>Caloric Deficit Diet</li>
+//         </ul>
+//         <video width="320" height="240" controls>
+//           <source src="../Videos/jump_rope.mp4" type="video/mp4">
+//         </video>
+//         <video width="320" height="240" controls>
+//           <source src="../Videos/deadlift.mp4" type="video/mp4">
+//         </video>
+//       `;
+//     }
+//   }
 
+//   // Fetch Admin Added Workouts
+//   function fetchAdminWorkouts(category) {
+//     const workoutContainer = document.getElementById("workoutContainer");
+
+//     workoutContainer.innerHTML = `
+      
+//       <h3 style="color:white;">For ${category.charAt(0).toUpperCase() + category.slice(1)}</h3>
+//     `;
+
+//     // Show Static Plans first
+//     showStaticBMIWorkouts(category);
+
+//     // Then load admin workouts dynamically
+//     fetch('/workouts')
+//       .then(res => res.json())
+//       .then(data => {
+//         if (data.success) {
+//           data.workouts.forEach(workout => {
+//             if (workout.category && workout.category.toLowerCase() === category) {
+//               const card = document.createElement('div');
+//               card.className = 'card';
+//               card.innerHTML = `
+//                 <div class="card-content">
+//                   <h4 style="color:white;">${workout.title}</h4>
+//                   <p style="color:white;">${workout.details}</p>
+//                 </div>
+//               `;
+//               workoutContainer.appendChild(card);
+//             }
+//           });
+//         } else {
+//           console.error('Failed to fetch workouts:', data.message);
+//         }
+//       })
+//       .catch(err => {
+//         console.error('Error fetching workouts:', err);
+//       });
+//   }
+
+//   // Nutrition Plan
+//   window.updateNutritionPlan = function () {
+//     const bmi = parseFloat(document.getElementById("bmiResult").innerText);
+//     const nutritionDetails = document.getElementById("nutritionDetails");
+
+//     if (isNaN(bmi)) {
+//       nutritionDetails.innerHTML = `<p>Please calculate your BMI first!</p>`;
+//       return;
+//     }
+
+//     let title = "";
+//     let meals = [];
+
+//     if (bmi < 18.5) {
+//       title = "Weight Gain Meal Plan";
+//       meals = [
+//         { food: "Oatmeal with Peanut Butter & Banana", calories: "450 kcal", image: "../Images/peanut.jpg" },
+//         { food: "Nuts & Greek Yogurt", calories: "300 kcal", image: "../Images/yogrt.jpg" }
+//       ];
+//     } else if (bmi < 24.9) {
+//       title = "Balanced Nutrition Meal Plan";
+//       meals = [
+//         { food: "Scrambled Eggs with Toast", calories: "350 kcal", image: "../Images/egg.jpg" },
+//         { food: "Hummus & Veggie Sticks", calories: "250 kcal", image: "../Images/vegstcik.jpg" }
+//       ];
+//     } else {
+//       title = "Weight Loss Meal Plan";
+//       meals = [
+//         { food: "Spinach-Banana Smoothie", calories: "300 kcal", image: "../Images/ALmond.jpg" },
+//         { food: "Grilled Chicken Salad", calories: "400 kcal", image: "../Images/Grilled.jpg" }
+//       ];
+//     }
+
+//     let mealHTML = `<h3>${title}</h3><div class="meal-plan-container">`;
+//     meals.forEach(meal => {
+//       mealHTML += `
+//         <div class="meal-card">
+//           <img src="${meal.image}" alt="${meal.food}" class="meal-image">
+//           <p class="meal-name">${meal.food}</p>
+//           <p class="meal-calories">Calories: ${meal.calories}</p>
+//         </div>
+//       `;
+//     });
+//     mealHTML += `</div>`;
+
+//     nutritionDetails.innerHTML = mealHTML;
+//   };
+// });
+
+// user_dashboard.js
+
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("✅ User Dashboard Script Loaded!");
+
+  let bmiCategory = "";
+
+  window.showSection = function (sectionId) {
+    document.querySelectorAll(".section").forEach(section => {
+      section.style.display = "none";
+    });
+    const active = document.getElementById(sectionId);
+    if (active) active.style.display = "block";
+  };
+
+  window.calculateBMI = function () {
+    const height = parseFloat(document.getElementById("height").value) / 100;
+    const weight = parseFloat(document.getElementById("weight").value);
+
+    if (isNaN(height) || isNaN(weight) || height <= 0 || weight <= 0) {
+      alert("Please enter valid height and weight values.");
+      return;
+    }
+
+    const bmi = (weight / (height * height)).toFixed(2);
+    document.getElementById("bmiResult").innerText = bmi;
+
+    if (bmi < 18.5) {
+      bmiCategory = "underweight";
+    } else if (bmi < 24.9) {
+      bmiCategory = "normal";
+    } else {
+      bmiCategory = "overweight";
+    }
+
+    document.getElementById("bmiStatus").innerText = bmiCategory.charAt(0).toUpperCase() + bmiCategory.slice(1);
+
+    fetchAdminWorkouts(bmiCategory);
+
+    const getPlanBtn = document.getElementById("getNutritionBtn");
+    if (getPlanBtn) {
+      getPlanBtn.onclick = () => updateNutritionPlan();
+    }
+  };
+
+  function fetchAdminWorkouts(category) {
+    const workoutContainer = document.getElementById("workoutContainer");
+    workoutContainer.innerHTML = `<h3 style="color:white;">For ${category.charAt(0).toUpperCase() + category.slice(1)}</h3>`;
+
+    fetch('/workouts')
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          data.workouts.forEach(workout => {
+            if (workout.category && workout.category.toLowerCase() === category) {
+              const card = document.createElement('div');
+              card.className = 'card';
+              card.innerHTML = `
+                <div class="card-content">
+                  <h4 style="color:white;">${workout.title}</h4>
+                  <p style="color:white;">${workout.details}</p>
+                </div>
+              `;
+              workoutContainer.appendChild(card);
+            }
+          });
+        }
+        showStaticBMIWorkouts(category);
+      })
+      .catch(err => console.error('Error fetching workouts:', err));
+  }
+
+  function showStaticBMIWorkouts(category) {
+    const workoutContainer = document.getElementById("workoutContainer");
+
+    if (category === "underweight") {
+      workoutContainer.innerHTML += `
+        <h3 style="color:white;">Basic Workouts for Weight Gain</h3>
+        <ul style="color:white;">
+          <li>Strength Training (3-4 times a week)</li>
+          <li>Calisthenics (Push-ups, Squats, Pull-ups)</li>
+          <li>Progressive Overload Training</li>
+          <li>High-Calorie Diet Plan</li>
+        </ul>
+        <h4 style="color:white;">Recommended Exercises:</h4>
+        <ol style="color:white;">
+          <li><b>Pull-ups:</b> 3 sets of 6-10 reps</li>
+          <video width="320" height="240" controls>
+            <source src="../Videos/pullups.mp4" type="video/mp4">
+          </video>
+          <li><b>Push-ups:</b> 3 sets of 12-15 reps</li>
+          <video width="320" height="240" controls>
+            <source src="../Videos/pushups.mp4" type="video/mp4">
+          </video>
+          <li><b>Squats:</b> 3 sets of 10-15 reps</li>
+          <video width="320" height="240" controls>
+            <source src="../Videos/squat.mp4" type="video/mp4">
+          </video>
+        </ol>
+      `;
+    } else if (category === "normal") {
+      workoutContainer.innerHTML += `
+        <h3 style="color:white;">Basic General Fitness Workouts</h3>
+        <ul style="color:white;">
+          <li>Cardio (Running, Cycling, Swimming)</li>
+          <li>Full-Body Strength Training</li>
+          <li>Flexibility Exercises (Yoga, Stretching)</li>
+        </ul>
+        <img src="../Images/yoga.jpg" width="400" height="250" style="display: block; margin: 10px auto; border-radius: 10px;">
+        <video width="320" height="240" controls>
+          <source src="../Videos/sprints.mp4" type="video/mp4">
+        </video>
+        <video width="320" height="240" controls>
+          <source src="../Videos/cycling.mp4" type="video/mp4">
+        </video>
+      `;
+    } else if (category === "overweight") {
+      workoutContainer.innerHTML += `
+        <h3 style="color:white;">Basic Workouts for Weight Loss</h3>
+        <ul style="color:white;">
+          <li>HIIT Workouts</li>
+          <li>Cardio (Jump Rope, Running, Cycling)</li>
+          <li>Strength Training (Fat-Burning Focus)</li>
+          <li>Caloric Deficit Diet</li>
+        </ul>
+        <video width="320" height="240" controls>
+          <source src="../Videos/jump_rope.mp4" type="video/mp4">
+        </video>
+        <video width="320" height="240" controls>
+          <source src="../Videos/deadlift.mp4" type="video/mp4">
+        </video>
+      `;
+    }
+  }
+
+  window.updateNutritionPlan = function () {
+    const nutritionDetails = document.getElementById("nutritionDetails");
+    nutritionDetails.innerHTML = `<h3>Nutrition Plans for ${bmiCategory}</h3><div class="meal-plan-container"></div>`;
+
+    const container = nutritionDetails.querySelector(".meal-plan-container");
+
+    fetch('/nutrition')
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          showStaticNutritionPlans(bmiCategory);
+
+          data.nutrition.forEach(plan => {
+            if (plan.category && plan.category.toLowerCase() === bmiCategory) {
+              const card = document.createElement('div');
+              card.className = 'meal-card';
+              card.innerHTML = `
+                <img src="${plan.image_url}" alt="${plan.title}" class="meal-image" onerror="this.onerror=null; this.src='../Images/default.jpg';">
+                <p class="meal-name">${plan.title}</p>
+              `;
+              container.appendChild(card);
+            }
+          });
+        }
+      })
+      .catch(err => console.error('Error fetching nutrition:', err));
+  }
+
+  function showStaticNutritionPlans(category) {
+    const nutritionDetails = document.getElementById("nutritionDetails");
+    const container = nutritionDetails.querySelector(".meal-plan-container");
+    if (!container) return;
+
+    let meals = [];
+    if (category === "underweight") {
+      meals = [
+        { food: "Oatmeal with Peanut Butter & Banana", calories: "450 kcal", image: "../Images/peanut.jpg" },
+        { food: "Nuts & Greek Yogurt", calories: "300 kcal", image: "../Images/yogrt.jpg" }
+      ];
+    } else if (category === "normal") {
+      meals = [
+        { food: "Scrambled Eggs with Toast", calories: "350 kcal", image: "../Images/egg.jpg" },
+        { food: "Hummus & Veggie Sticks", calories: "250 kcal", image: "../Images/vegstcik.jpg" }
+      ];
+    } else {
+      meals = [
+        { food: "Spinach-Banana Smoothie", calories: "300 kcal", image: "../Images/ALmond.jpg" },
+        { food: "Grilled Chicken Salad", calories: "400 kcal", image: "../Images/Grilled.jpg" }
+      ];
+    }
+
+    meals.forEach(meal => {
+      const card = document.createElement('div');
+      card.className = 'meal-card';
+      card.innerHTML = `
+        <img src="${meal.image}" alt="${meal.food}" class="meal-image" onerror="this.onerror=null; this.src='../Images/default.jpg';">
+        <p class="meal-name">${meal.food}</p>
+        <p class="meal-calories">Calories: ${meal.calories}</p>
+      `;
+      container.appendChild(card);
+    });
+  }
+});
