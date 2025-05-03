@@ -6,15 +6,16 @@
   <title>Admin Dashboard</title>
   <link rel="stylesheet" href="admin_dashboard.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
-  <!-- This script will fetch /users and populate the table -->
   <script src="admin_dashboard.js" defer></script>
 </head>
 <body>
 
-    <div id="welcomeMessage" class="welcome-banner">
-        <p>👋 WELCOME TO ADMIN DASHBOARD</p>
-    </div>
+  <!-- ✅ Welcome Banner -->
+  <div id="welcomeMessage" class="welcome-banner">
+    <p>👋 Welcome to Admin Dashboard</p>
+  </div>
 
+  <!-- ✅ Sidebar Menu -->
   <input type="checkbox" id="check" />
   <label for="check" class="menu-btn">
     <i class="fas fa-bars" id="btn"></i>
@@ -24,22 +25,14 @@
   <div class="sidebar">
     <h2>Hello, Admin</h2>
     <ul>
-      <li onclick="showSection('user-management')">
-        <i class="fa-solid fa-users"></i> Manage Users
-      </li>
-      <li onclick="showSection('workout-management')">
-        <i class="fa-solid fa-dumbbell"></i> Manage Workouts
-      </li>
-      <li onclick="showSection('nutrition-management')">
-        <i class="fa-solid fa-apple-alt"></i> Manage Nutrition
-      </li>
-      <li onclick="showSection('blog-management')">
-        <i class="fa-solid fa-newspaper"></i> Manage Blogs
-      </li>
+      <li onclick="showSection('user-management')"><i class="fa-solid fa-users"></i> Manage Users</li>
+      <li onclick="showSection('workout-management')"><i class="fa-solid fa-dumbbell"></i> Manage Workouts</li>
+      <li onclick="showSection('nutrition-management')"><i class="fa-solid fa-apple-alt"></i> Manage Nutrition</li>
+      <li onclick="showSection('blog-management')"><i class="fa-solid fa-newspaper"></i> Manage Blogs</li>
     </ul>
   </div>
 
-  <!-- ================= User Management ================= -->
+  <!-- ✅ Manage Users Section -->
   <section id="user-management">
     <h2>Manage Users</h2>
     <table border="1">
@@ -54,42 +47,37 @@
         </tr>
       </thead>
       <tbody id="userTableBody">
-        <!-- Rows will be inserted here by admin_dashboard.js -->
+        <!-- Users will be dynamically loaded here -->
       </tbody>
     </table>
   </section>
 
-  <!-- ================ Workout Management ================ -->
+  <!-- ✅ Manage Workouts Section -->
   <section id="workout-management" style="display: none;">
     <h2>Manage Workouts</h2>
     <div class="admin-controls">
       <button id="addWorkout">Add Workout</button>
     </div>
-    <div class="row" id="workout-container">
-      <!-- ... your existing workout cards ... -->
-    </div>
+    <div class="row" id="workout-container"></div>
   </section>
 
-  <!-- ================ Nutrition Management ================ -->
+  <!-- ✅ Manage Nutrition Plans Section -->
   <section id="nutrition-management" style="display: none;">
-    <h1>Nutrition Plans</h1>
+    <h2>Manage Nutrition Plans</h2>
     <div class="admin-controls">
       <button id="addNutrition">Add Nutrition Plan</button>
     </div>
-    <div class="nutrition-content" id="nutrition-container">
-      <!-- ... your existing nutrition cards ... -->
-    </div>
+    <div id="nutrition-container" class="nutrition-content"></div>
   </section>
 
-  <!-- ================= Blog Management ================= -->
-  <section id="blog-management" class="blog" style="display: none;">
-    <h1>Manage Blogs</h1>
+  <!-- ✅ Manage Blogs Section -->
+  <section id="blog-management" style="display: none;">
+    <h2>Manage Blogs</h2>
     <div class="admin-controls">
       <button id="addBlog">Add Blog</button>
     </div>
-    <div class="row" id="blog-container">
-      <!-- ... your existing blog cards ... -->
-    </div>
+    <div id="blogContainer" class="blog-list"></div>
   </section>
+
 </body>
 </html>
