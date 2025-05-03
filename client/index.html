@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fitness Freek</title>
-    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <title>Fitness Freak</title>
+
     <link rel="stylesheet" href="css/styles.css">
     <script src="js/myscripts.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-        <link rel="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css"></link>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+
 <body>
     <section class="header">
         <nav>
@@ -20,282 +21,296 @@
             <div class="nav-links" id="navLinks">
                 <i class="fa fa-times" onclick="hideMenu()"></i>
                 <ul>
-                    <li><a href="#">HOME</a></li> 
-                    <li><a href="#">WORKOUTS</a></li>
-                    <li><a href="#">NUTRITION</a></li>    
-                    <li><a href="#">BLOGS</a></li>
-                    <!-- <li><a href="login.html" class="btn">LOG IN</a></li> -->
+                    <li><a href="#home">HOME</a></li> 
+                    <li><a href="#workouts">WORKOUTS</a></li>
+                    <li><a href="#nutritions">NUTRITION</a></li>    
+                    <li><a href="#blogs">BLOGS</a></li>
                     <a href="#" class="btn" onclick="showLoginForm()">LOG IN</a>
                 </ul>
             </div>
             <i class="fa fa-bars" onclick="showMenu()"></i>
         </nav>
-        <div class="text-box">
+        <div class="text-box" id="home">
             <h1>Your Fitness Journey<br>Starts Here!</h1>
-            <a href="login.html" class="btn">Get Started</a>
+            <a href="#" class="btn" onclick="showLoginForm()">Get Started</a> <!-- ✅ Fixed here -->
         </div>
     </section>
 
-<!-- Login & Signup Popup -->
-<div id="loginPopup" class="popup">
-  <div class="popup-content">
-      <span class="close-btn" onclick="closePopup()">&times;</span>
+    <!-- Login & Signup Popup -->
+    <div id="loginPopup" class="popup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePopup()">&times;</span>
 
-      <!-- Login Form -->
-      <div id="loginForm">
-          <h2>Login</h2>
-          <select id="loginRole" onchange="toggleSignup()">
-              <option value="user">User</option>
-              <option value="admin">Admin</option>
-          </select>
-          <input type="email" id="loginEmail" placeholder="Enter Email" required>
-          <input type="password" id="loginPassword" placeholder="Enter Password" required>
-          <button onclick="login()">Login</button>
-          <p id="signupLink" class="small-text">Don't have an account? <a href="#" onclick="showSignup()">Sign Up</a></p>
-      </div>
-
-      <!-- Signup Form -->
-      <div id="signupForm" style="display: none;">
-          <h2>Sign Up</h2>
-          <input type="text" id="signupName" placeholder="Enter Name" required>
-          <input type="number" id="signupAge" placeholder="Enter Age" required>
-          <select id="signupGender">
-              <option value="">Select Gender</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Other">Other</option>
-          </select>
-          <input type="email" id="signupEmail" placeholder="Enter Email" required>
-          <input type="password" id="signupPassword" placeholder="Enter Password" required>
-          <button onclick="signup()">Sign Up</button>
-          <p class="small-text">Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
-      </div>
-  </div>
-</div>
-
-<!-- Workout -->
-<section class="title">
-  <div class="coll">
-  <h1>Workouts</h1>
-</div>
-  <div class="row">
-    
-    <div class="card">
-      <img src="Images/bb.jpg" alt="Beginner Workout">
-      <div class="card-content">
-        <h4>Physical Fitness</h4>
-   <!-- <p>Build basic strength, endurance, and mobility.</p> -->
-        <!-- <a href="#" class="btn">Read More</a> -->
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="Images/gn.jpg" alt="Intermediate Workout">
-      <div class="card-content">
-        <h4>Weight Gain</h4>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="Images/str.jpg" alt="Advanced Workout">
-      <div class="card-content">
-        <h4>Strength Training</h4>
-       
-      </div>
-    </div>
-    <div class="card">
-      <img src="Images/loos.jpg" alt="Intermediate Workout">
-      <div class="card-content">
-        <h4>Fat Lose</h4>
-        
-      </div>
-    </div>
-    <div class="card">
-      <img src="Images/runn.jpg" alt="Intermediate Workout">
-      <div class="card-content">
-        <h4>Running</h4>
-       
-      </div>
-    </div>
-    <div class="card">
-      <img src="Images/wht.jpg" alt="Intermediate Workout">
-      <div class="card-content">
-        <h4>WeightLifting</h4>
-      </div>
-    </div>
-
-  </div>
-</section>
-<!-- Nutrition Section -->
-<section class="nutrition">
-  <h1>Nutrition Plans</h1>
-  <div class="nutrition-content">
-      <!-- Weight Loss Plan -->
-      <div class="nutrition-card">
-          <img src="Images/kkt.webp" alt="Healthy Meal">
-          <div class="nutrition-card-content">
-              <h4>Weight Loss Plan</h4>
-              <p>Track your calorie intake and maintain a balanced diet.</p>
-              <a href="#" class="nutrition-btn" onclick="showDetails('weightLoss')">Learn More</a>
-          </div>
-      </div>
-
-      <!-- Muscle Gain Plan -->
-      <div class="nutrition-card">
-          <img src="Images/proy.jpg" alt="Protein Diet">
-          <div class="nutrition-card-content">
-              <h4>Muscle Gain Plan</h4>
-              <p>High-protein meals tailored for muscle growth.</p>
-              <a href="#" class="nutrition-btn" onclick="showDetails('muscleGain')">Learn More</a>
-          </div>
-      </div>
-  </div>
-</section>
-
-<!-- Hidden Nutrition Details (Pop-up or Expandable) -->
-<div id="nutritionDetails" class="nutrition-popup" style="display: none;">
-  <div class="nutrition-popup-content">
-      <span class="close-btn" onclick="closeDetails()">&times;</span>
-      <div id="nutritionInfo"></div>
-  </div>
-</div>
-
-
-
-<!-- CSS (Add this in styles.css) -->
-
-
-
-<!-- Blogs -->
-<section class="blog">
-  <div class="row2">
-    <div class="col2">
-      <p>INSIGHTFUL & INSPIRING</p>
-      <h1> Latest Blogs</h1>
-     
-    </div>
-  </div>
-  <div class="row">
-    
-   <!-- Card Section -->
-<div class="card">
-  <img src="Images/bbg1.PNG" alt="">
-  <div class="card-content">
-    <h4>What is Mindful Eating?</h4>
-    <p>Mindful eating entails fully engaging in the present moment and maintaining an awareness of your thoughts, emotions, and bodily sensations as you eat your food.</p>
-    <button onclick="openForm('Mindful Eating ', 
-    `The primary distinction between mindful eating and dieting is that the former focuses on the quality of your eating experience, while the latter centers around restricting certain food groups or counting calories.
-
-    Mindful eating is not a custom weight loss plan; instead, it promotes a healthy and balanced relationship with food, free from guilt or deprivation.
-
-    Benefits of Mindful Eating:
-    - Improved digestion
-    - Better management of emotional eating
-    - Increased satisfaction from meals
-    - Reduced binge eating
-    - Improved weight management
-    - Enhanced mental and emotional well-being
-
-    By practicing mindful eating, you’ll be able to enjoy your food more and establish a nurturing, sustainable approach to nourishment.
-
-    Principles of Mindful Eating:
-    1. Cultivate the Right Space: Design a space that promotes relaxation and focus during mealtimes, such as setting the table with attractive dinnerware, lighting candles, or playing soft background music.
-    
-    2. Listen to Your Body: One of the core principles of mindful eating is tuning in to your body’s natural signals for hunger and satiety. By paying close attention to these cues, you can avoid overeating and develop a healthier relationship with food.
-    `)">
-      Read More
-    </button>  </div>
-</div>
-
-<!-- Another Card -->
-<!-- Card -->
-<div class="card">
-  <img src="Images/yuu.jpg" alt="">
-  <div class="card-content">
-    <h4>How to Make Exercise a Regular Habit in 6 Steps</h4>
-    <p>These six steps can help shift your focus so that you approach exercise as a means to a healthier life, which is essential for making it a daily habit</p>
-    <button onclick="openForm('6 Steps ', 
-    `1.Treat yourself: Give yourself a small nonfood-related reward after completing a workout, doing all of the workouts you scheduled for yourself in a week or when you hit a goal.
-    2.Schedule your workouts: If you live by your appointment calendar, it may sometimes feel as though your schedule takes over your life and limits the amount of time available for a workout.
-    3.Set a learning goal: There are two primary types of goals: outcome and learning. Outcome goals focus on the end result of performing a task, such as completing a marathon. Learning goals, however, focus on the process or steps required to achieve an outcome, such as learning how to exercise with a kettlebell.
-    4.Change your mindset: Refocus your outcome goals to focus on quality of life rather than trying to achieve some media-defined appearance. 
-    5.Develop a journaling practice: Use a journal to track your progress and record how you feel after you exercise. This doesn’t require lugging a journal with you to the gym for every workout—you could simply use the notes app on your phone to record a few brief statements about how the workout made you feel.
-    6.Find a workout buddy: Enlisting a friend or family member to be a workout partner can give you someone to exercise with, which helps the time pass more quickly.
-    `)">
-      Read More
-    </button>
-  </div>
-</div>
-
-
-<!-- Popup Form -->
-<div id="popupForm" class="form-popup">
-  <div class="form-container">
-    <span class="close-btn" onclick="closeForm()">&times;</span>
-    <h2 id="popup-title"></h2>
-    <p id="popup-description"></p>
-  </div>
-</div>
-</div>
-
-
-<div class="card">
-  <img src="Images/bbg3.PNG" alt="Fitness Gym">
-  <div class="card-content">
-    <h4>Time-Friendly Fitness: The Advantages of Gyms with Flexible Hours</h4>
-    <p>Mindful eating entails fully engaging in the present moment and maintaining an awareness of your thoughts, emotions, and bodily sensations as you eat your food.</p>
-    <button onclick="openForm(`Finding time for physical activity in today is fast-paced world can be challenging. We totally get it. Juggling work, childcare, and social obligations often leaves little room for regular exercise.
-
-    That is why finding a gym that can fit your busy schedule is so important when trying to make time to work out! Flexible-hour fitness centers provide the same benefits as traditional gyms but offer the freedom to work out whenever it suits your schedule.
-    
-    Joining a gym can create a lifestyle that works for you—making your needs a priority. Find a local club with flexible hours for all schedules.
-    
-    `)">
-      Read More
-    </button>
-  </div>
-</div>
-
-
-
-
-       
-          <div class="card">
-            <img src="Images/bbg4.PNG" alt="">
-            <div class="card-content">
-              <h4>The Ultimate Full-body circuit workout for beginners</h4>
-              <p>Keeping your fitness journey fresh and exciting can feel like a lifelong quest. You want to balance your workout routine full of old favorites you know and love while throwing in new adventures so you steer clear of boredom and make the most out of the time you spend moving.</p>
-              <button onclick="openForm(`Keeping your fitness journey fresh and exciting can feel like a lifelong quest. You want to balance your workout routine full of old favorites you know and love while throwing in new adventures so you steer clear of boredom and make the most out of the time you spend moving.
-              One of our favorite ways to bust out of a workout rut is by mixing in some circuit training. If you’re a beginner—or just looking to add something new to your routine—circuit workouts are a dynamic and efficient workout style that combines strength and cardio exercises, making it ideal for a lot of diverse groups. Read on to rediscover the forgotten fun of circuit workouts or learn about circuit training workouts for the first time.
-              `)">
-                Read More
-              </button>
-              
+            <!-- Login Form -->
+            <div id="loginForm">
+                <h2>Login</h2>
+                <select id="loginRole" onchange="toggleSignupButton()"> <!-- ✅ Fixed here -->
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                </select>
+                <input type="email" id="loginEmail" placeholder="Enter Email" required>
+                <input type="password" id="loginPassword" placeholder="Enter Password" required>
+                <button onclick="login()">Login</button>
+                <p id="signupLink" class="small-text">Don't have an account? <a href="#" onclick="showSignup()">Sign Up</a></p>
             </div>
-          </div>
-          <div class="row">
 
-</section>
-<!-- Footer Section -->
-<footer class="footer">
-  <div class="container">
-      <div class="footer-content">
-          <h2>Fitness Freak</h2>
-          <p>Your one-stop destination for fitness and wellness.</p>
-          <div class="social-icons">
-              <a href="#"><i class="fa fa-facebook"></i></a>
-              <a href="#"><i class="fa fa-instagram"></i></a>
-              <a href="#"><i class="fa fa-twitter"></i></a>
-          </div>
-      </div>
-      <div class="footer-links">
-          
-      </div>
-      <p class="copyright">&copy; 2025 Fitness Freak. All rights reserved.</p>
+            <!-- Signup Form -->
+            <div id="signupForm" style="display: none;">
+                <h2>Sign Up</h2>
+                <input type="text" id="signupName" placeholder="Enter Name" required>
+                <input type="number" id="signupAge" placeholder="Enter Age" required>
+                <select id="signupGender">
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+                <input type="email" id="signupEmail" placeholder="Enter Email" required>
+                <input type="password" id="signupPassword" placeholder="Enter Password" required>
+                <button onclick="signup()">Sign Up</button>
+                <p class="small-text">Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Workout -->
+<section class="title" id="workouts">
+    <div class="coll">
+    <h1>Workouts</h1>
   </div>
-</footer>
+    <div class="row">
+      
+      <div class="card">
+        <img src="Images/bb.jpg" alt="Beginner Workout">
+        <div class="card-content">
+          <h4>Physical Fitness</h4>
+        </div>
+      </div>
+  
+      <div class="card">
+        <img src="Images/gn.jpg" alt="Intermediate Workout">
+        <div class="card-content">
+          <h4>Weight Gain</h4>
+        </div>
+      </div>
+  
+      <div class="card">
+        <img src="Images/str.jpg" alt="Advanced Workout">
+        <div class="card-content">
+          <h4>Strength Training</h4>
+         
+        </div>
+      </div>
+      <div class="card">
+        <img src="Images/loos.jpg" alt="Intermediate Workout">
+        <div class="card-content">
+          <h4>Fat Lose</h4>
+          
+        </div>
+      </div>
+      <div class="card">
+        <img src="Images/runn.jpg" alt="Intermediate Workout">
+        <div class="card-content">
+          <h4>Running</h4>
+         
+        </div>
+      </div>
+      <div class="card">
+        <img src="Images/wht.jpg" alt="Intermediate Workout">
+        <div class="card-content">
+          <h4>WeightLifting</h4>
+        </div>
+      </div>
+  
+    </div>
+  </section>
 
 
+  <!-- Nutrition Section -->
+  <section class="nutrition" id="nutritions">
+    <h1>Nutrition Plans</h1>
+    <div class="nutrition-content">
+      <div class="nutrition-card">
+        <img src="Images/kkt.webp" alt="Healthy Meal">
+        <div class="nutrition-card-content">
+          <h4>Weight Loss Plan</h4>
+          <p>Track your calorie intake and maintain a balanced diet.</p>
+          <a href="#nutritions" class="nutrition-btn" onclick="showDetails('weightLoss')">Learn More</a>
+        </div>
+      </div>
+      <div class="nutrition-card">
+        <img src="Images/proy.jpg" alt="Protein Diet">
+        <div class="nutrition-card-content">
+          <h4>Muscle Gain Plan</h4>
+          <p>High-protein meals tailored for muscle growth.</p>
+          <a href="#nutritions" class="nutrition-btn" onclick="showDetails('muscleGain')">Learn More</a>
+        </div>
+      </div>
+    </div>
 
-</body>
-</html>
+    <!-- Popup inside nutrition section -->
+    <div id="nutritionDetails" class="nutrition-popup" style="display: none;">
+      <div class="nutrition-popup-content">
+        <span class="close-btn" onclick="closeDetails()">&times;</span>
+        <div id="nutritionInfo"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Optional CSS in <style> for positioning -->
+  <style>
+    .nutrition-popup {
+      background: white;
+      padding: 25px;
+      max-width: 600px;
+      margin: 40px auto;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      border-radius: 12px;
+      font-family: sans-serif;
+    }
+    .nutrition-popup-content {
+      position: relative;
+    }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      color: #e74c3c;
+      font-size: 22px;
+      cursor: pointer;
+    }
+  </style>
+
+  
+  
+  <!-- Blogs -->
+  <section class="blog" id="blogs">
+    <div class="row2">
+      <div class="col2">
+        <p>INSIGHTFUL & INSPIRING</p>
+        <h1> Latest Blogs</h1>
+       
+      </div>
+    </div>
+    <div class="row">
+
+      
+     <!-- Card Section -->
+  <div class="card">
+    <img src="Images/bbg1.PNG" alt="">
+    <div class="card-content">
+      <h4>What is Mindful Eating?</h4>
+      <p>Mindful eating entails fully engaging in the present moment and maintaining an awareness of your thoughts, emotions, and bodily sensations as you eat your food.</p>
+      <button onclick="openForm('Mindful Eating ', 
+      `The primary distinction between mindful eating and dieting is that the former focuses on the quality of your eating experience, while the latter centers around restricting certain food groups or counting calories.
+  
+      Mindful eating is not a custom weight loss plan; instead, it promotes a healthy and balanced relationship with food, free from guilt or deprivation.
+  
+      Benefits of Mindful Eating:
+      - Improved digestion
+      - Better management of emotional eating
+      - Increased satisfaction from meals
+      - Reduced binge eating
+      - Improved weight management
+      - Enhanced mental and emotional well-being
+  
+      By practicing mindful eating, you’ll be able to enjoy your food more and establish a nurturing, sustainable approach to nourishment.
+  
+      Principles of Mindful Eating:
+      1. Cultivate the Right Space: Design a space that promotes relaxation and focus during mealtimes, such as setting the table with attractive dinnerware, lighting candles, or playing soft background music.
+      
+      2. Listen to Your Body: One of the core principles of mindful eating is tuning in to your body’s natural signals for hunger and satiety. By paying close attention to these cues, you can avoid overeating and develop a healthier relationship with food.
+      `)">
+        Read More
+      </button>  </div>
+  </div>
+  
+  <!-- Another Card -->
+  <!-- Card -->
+  <div class="card">
+    <img src="Images/yuu.jpg" alt="">
+    <div class="card-content">
+      <h4>How to Make Exercise a Regular Habit in 6 Steps</h4>
+      <p>These six steps can help shift your focus so that you approach exercise as a means to a healthier life, which is essential for making it a daily habit</p>
+      <button onclick="openForm('6 Steps ', 
+      `1.Treat yourself: Give yourself a small nonfood-related reward after completing a workout, doing all of the workouts you scheduled for yourself in a week or when you hit a goal.
+      2.Schedule your workouts: If you live by your appointment calendar, it may sometimes feel as though your schedule takes over your life and limits the amount of time available for a workout.
+      3.Set a learning goal: There are two primary types of goals: outcome and learning. Outcome goals focus on the end result of performing a task, such as completing a marathon. Learning goals, however, focus on the process or steps required to achieve an outcome, such as learning how to exercise with a kettlebell.
+      4.Change your mindset: Refocus your outcome goals to focus on quality of life rather than trying to achieve some media-defined appearance. 
+      5.Develop a journaling practice: Use a journal to track your progress and record how you feel after you exercise. This doesn’t require lugging a journal with you to the gym for every workout—you could simply use the notes app on your phone to record a few brief statements about how the workout made you feel.
+      6.Find a workout buddy: Enlisting a friend or family member to be a workout partner can give you someone to exercise with, which helps the time pass more quickly.
+      `)">
+        Read More
+      </button>
+    </div>
+  </div>
+  
+  
+  <!-- Popup Form -->
+  <div id="popupForm" class="form-popup">
+    <div class="form-container">
+      <span class="close-btn" onclick="closeForm()">&times;</span>
+      <h2 id="popup-title"></h2>
+      <p id="popup-description"></p>
+    </div>
+  </div>
+  </div>
+  
+  
+  <div class="card">
+    <img src="Images/bbg3.PNG" alt="Fitness Gym">
+    <div class="card-content">
+      <h4>Time-Friendly Fitness: The Advantages of Gyms with Flexible Hours</h4>
+      <p>Mindful eating entails fully engaging in the present moment and maintaining an awareness of your thoughts, emotions, and bodily sensations as you eat your food.</p>
+      <button onclick="openForm(`Finding time for physical activity in today is fast-paced world can be challenging. We totally get it. Juggling work, childcare, and social obligations often leaves little room for regular exercise.
+  
+      That is why finding a gym that can fit your busy schedule is so important when trying to make time to work out! Flexible-hour fitness centers provide the same benefits as traditional gyms but offer the freedom to work out whenever it suits your schedule.
+      
+      Joining a gym can create a lifestyle that works for you—making your needs a priority. Find a local club with flexible hours for all schedules.
+      
+      `)">
+        Read More
+      </button>
+    </div>
+  </div>
+  
+  
+  
+  
+         
+            <div class="card">
+              <img src="Images/bbg4.PNG" alt="">
+              <div class="card-content">
+                <h4>The Ultimate Full-body circuit workout for beginners</h4>
+                <p>Keeping your fitness journey fresh and exciting can feel like a lifelong quest. You want to balance your workout routine full of old favorites you know and love while throwing in new adventures so you steer clear of boredom and make the most out of the time you spend moving.</p>
+                <button onclick="openForm(`Keeping your fitness journey fresh and exciting can feel like a lifelong quest. You want to balance your workout routine full of old favorites you know and love while throwing in new adventures so you steer clear of boredom and make the most out of the time you spend moving.
+                One of our favorite ways to bust out of a workout rut is by mixing in some circuit training. If you’re a beginner—or just looking to add something new to your routine—circuit workouts are a dynamic and efficient workout style that combines strength and cardio exercises, making it ideal for a lot of diverse groups. Read on to rediscover the forgotten fun of circuit workouts or learn about circuit training workouts for the first time.
+                `)">
+                  Read More
+                </button>
+                
+              </div>
+            </div>
+            <div class="row">
+  
+  </section>
+  <!-- Footer Section -->
+  <footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <h2>Fitness Freak</h2>
+            <p>Your one-stop destination for fitness and wellness.</p>
+            <div class="social-icons">
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-instagram"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+            </div>
+        </div>
+        <div class="footer-links">
+            
+        </div>
+        <p class="copyright">&copy; 2025 Fitness Freak. All rights reserved.</p>
+    </div>
+  </footer>
+  
+  
