@@ -1,73 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Dashboard</title>
-    <link rel="stylesheet" href="user_dashboard.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="user_dashboard.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Dashboard</title>
+  <link rel="stylesheet" href="user_dashboard.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <script src="user_dashboard.js" defer></script>
 </head>
 <body>
-    
-    <div id="welcomeMessage" class="welcome-banner">
-        <p>👋 WELCOME TO USER DASHBOARD</p>
-    </div>
 
-    <!-- Hamburger Menu Checkbox -->
-    <input type="checkbox" id="check">
-    <label for="check" class="menu-btn">
-        <i class="fas fa-bars" id="btn"></i>
-        <i class="fas fa-times" id="cancel"></i>
-    </label>
+  <!-- Welcome Banner -->
+  <div id="welcomeMessage" class="welcome-banner">
+    <p>👋 Welcome to User Dashboard</p>
+  </div>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <h2><i class="fa-solid fa-user" style="margin-right: 8px;"></i>Hello, User</h2>
+  <!-- Sidebar Menu -->
+  <input type="checkbox" id="check" />
+  <label for="check" class="menu-btn">
+    <i class="fas fa-bars" id="btn"></i>
+    <i class="fas fa-times" id="cancel"></i>
+  </label>
 
-        <ul>
-            <li onclick="showSection('profile')"><i class="fa-solid fa-user"></i> Profile</li>
-            <li onclick="showSection('workout')"><i class="fa-solid fa-dumbbell"></i> Workouts</li>
-            <li onclick="showSection('nutrition')"><i class="fa-solid fa-apple-alt"></i> Nutrition</li>
-            <li onclick="showSection('blog')"><i class="fa-solid fa-newspaper"></i> Blogs</li>
-        </ul>
-    </div>  
-   
+  <div class="sidebar">
+    <h2><i class="fa-solid fa-user" style="margin-right: 8px;"></i>Hello, User</h2>
+    <ul>
+      <li onclick="showSection('profile')"><i class="fa-solid fa-user"></i> Profile</li>
+      <li onclick="showSection('workout')"><i class="fa-solid fa-dumbbell"></i> Workouts</li>
+      <li onclick="showSection('nutrition')"><i class="fa-solid fa-apple-alt"></i> Nutrition</li>
+      <li onclick="showSection('blog')"><i class="fa-solid fa-newspaper"></i> Blogs</li>
+    </ul>
+  </div>
 
-    <!-- Main Content -->
-    <div class="main-content">
-        <!-- Profile Section -->
-        <div id="profile" class="section">
-            <h2>User Profile</h2>
-            <label for="height">Height (cm):</label>
-            <input type="number" id="height" placeholder="Enter height">
+  <!-- Main Content -->
+  <div class="main-content">
 
-            <label for="weight">Weight (kg):</label>
-            <input type="number" id="weight" placeholder="Enter weight">
+    <!-- Profile Section -->
+    <section id="profile" class="section">
+      <h2>User Profile</h2>
+      <label for="height">Height (cm):</label>
+      <input type="number" id="height" placeholder="Enter height">
+      <label for="weight">Weight (kg):</label>
+      <input type="number" id="weight" placeholder="Enter weight">
+      <label for="targetWeight">Target Weight (kg):</label>
+      <input type="number" id="targetWeight" placeholder="Enter target weight">
+      <button onclick="calculateBMI()">Calculate BMI</button>
+      <h3>Your BMI: <span id="bmiResult">--</span></h3>
+      <h3>Status: <span id="bmiStatus">--</span></h3>
+    </section>
 
-            <label for="targetWeight">Target Weight (kg):</label>
-            <input type="number" id="targetWeight" placeholder="Enter target weight">
+    <!-- Workouts Section -->
+    <section id="workout" class="section" style="display: none;">
+      <h2>Available Workouts</h2>
+      <div class="row" id="workoutContainer"></div>
+    </section>
 
-            <button onclick="calculateBMI()">Calculate BMI</button>
+    <!-- Nutrition Section -->
+    <section id="nutrition" class="section" style="display: none;">
+      <h2>Nutrition Plans</h2>
+      <p>Select your nutrition plan based on your BMI:</p>
+      <button onclick="updateNutritionPlan()" id="getNutritionBtn">Get Your Plan</button>
+      <div id="nutritionDetails" style="margin-top: 20px;"></div>
+    </section>
 
-            <h3>Your BMI: <span id="bmiResult">--</span></h3>
-            <h3>Status: <span id="bmiStatus">--</span></h3>
+    <!-- Blog Section -->
+    <section class="section" id="blog" style="display: none;">
+      <div class="row2">
+        <div class="col2">
+          <p>INSIGHTFUL & INSPIRING</p>
+          <h1>Latest Blogs</h1>
         </div>
-    </div>
+      </div>
 
-    <!-- Workout Section -->
-<div id="workout" class="section" style="display: none;">
-    <h2>Workouts</h2>
-</div>
+      <!-- Static Blogs -->
+      <div class="blog-row">
+        <div class="blog-card">
+          <img src="../Images/bbg1.PNG" alt="">
+          <div class="card-content">
+            <h4>What is Mindful Eating?</h4>
+            <p>Mindful eating means fully experiencing your food, emotions, and hunger...</p>
+            <button onclick="openForm('Mindful Eating', 'Mindful eating focuses on enjoying your meals intentionally, improving digestion, and reducing binge eating.')">Read More</button>
+          </div>
+        </div>
 
- <!-- Nutrition Section -->
- <div id="nutrition" class="section" style="display: none;">
-    <h2>Nutrition Plan</h2>
-    <p>Select a nutrition plan based on your BMI.</p>
-    <button onclick="updateNutritionPlan()">Get Your Plan</button>
-    <div id="nutritionDetails"></div>
-</div>
+        <div class="blog-card">
+          <img src="../Images/yuu.jpg" alt="">
+          <div class="card-content">
+            <h4>How to Make Exercise a Habit</h4>
+            <p>Six powerful steps to make workouts part of your life forever...</p>
+            <button onclick="openForm('Exercise Habit', '1. Reward yourself\n2. Schedule it\n3. Set goals\n4. Journal\n5. Find a buddy\n6. Track progress')">Read More</button>
+          </div>
+        </div>
 
+        <div class="blog-card">
+          <img src="../Images/bbg3.PNG" alt="">
+          <div class="card-content">
+            <h4>Flexible Hour Gyms</h4>
+            <p>Convenience-focused gyms that fit your busy lifestyle...</p>
+            <button onclick="openForm('Flexible Gyms', 'Flexible-hour gyms help people manage fitness around work, kids, and life commitments.')">Read More</button>
+          </div>
+        </div>
+
+        <div class="blog-card">
+          <img src="../Images/bbg4.PNG" alt="">
+          <div class="card-content">
+            <h4>Full-body Circuit Workout</h4>
+            <p>Efficient training method that targets all major muscle groups...</p>
+            <button onclick="openForm('Full-body Circuit', 'Circuit training is a combo of strength and cardio exercises performed in rotation to improve endurance and burn fat.')">Read More</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dynamic Blogs (from backend) -->
+      <div id="blogContainer" class="blog-row"></div>
+    </section>
+  </div>
+
+  <script>
+    function openForm(title, content) {
+      alert(`${title}\n\n${content}`);
+    }
+
+    function showSection(sectionId) {
+      document.querySelectorAll('.section').forEach(section => {
+        section.style.display = 'none';
+      });
+      const active = document.getElementById(sectionId);
+      if (active) active.style.display = 'block';
+    }
+  </script>
 
 </body>
 </html>
